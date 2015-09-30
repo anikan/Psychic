@@ -12,7 +12,7 @@ public class ForceMove : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, 100))
-            rigidbody.AddForceAtPosition((transform.position - hit.point) * force,
+            GetComponent<Rigidbody>().AddForceAtPosition((transform.position - hit.point) * force,
                                                     hit.point,ForceMode.Impulse);
     
     }

@@ -22,8 +22,8 @@ public class Explosion : MonoBehaviour {
 
                 foreach(Collider c in colliders)
                 {
-                    if (c.rigidbody == null) continue;
-                    c.rigidbody.AddExplosionForce(force,hit.point,boomradius,1,ForceMode.Impulse);
+                    if (c.GetComponent<Rigidbody>() == null) continue;
+                    c.GetComponent<Rigidbody>().AddExplosionForce(force,hit.point,boomradius,1,ForceMode.Impulse);
                 //rigidbody.AddExplosionForce(force, hit.point, boomradius, 1, ForceMode.Impulse);
                 }
             }

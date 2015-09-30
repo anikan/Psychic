@@ -109,7 +109,7 @@ public class RayScript : MonoBehaviour {
 		if (!((Input.GetKey("x")) && (selectedAbility == 2))) 
 		{
 			Debug.Log ("Original");
-			player.rigidbody.useGravity = true;
+			player.GetComponent<Rigidbody>().useGravity = true;
 			targetRay = new Ray (this.transform.position, this.transform.forward);
 
 		}
@@ -133,7 +133,7 @@ public class RayScript : MonoBehaviour {
 					//deactivates TK:
 					Debug.Log ("Test?");
 					lastObject.transform.parent = hitParent;
-					lastObject.rigidbody.useGravity = true;
+					lastObject.GetComponent<Rigidbody>().useGravity = true;
 					TKActive = false;
 					firstHit = true;
 				}
@@ -152,9 +152,9 @@ public class RayScript : MonoBehaviour {
 					{
 						if (hit.collider.tag == physObject) {
 							TKActive = true;
-							hitObject.rigidbody.useGravity = false;
+							hitObject.GetComponent<Rigidbody>().useGravity = false;
 							//this code should only be executed when the user presses t initially
-							hitObject.rigidbody.velocity = new Vector3(0,0,0);
+							hitObject.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
 							if (firstHit) 
 							{
 								//stores parent of object before changing it
@@ -194,8 +194,8 @@ public class RayScript : MonoBehaviour {
 							else if (Input.GetKey ("r")) 
 							{
 								hitObject.transform.parent = hitParent;
-								hitObject.rigidbody.useGravity = true;
-								hitObject.rigidbody.velocity = transform.forward * 20;
+								hitObject.GetComponent<Rigidbody>().useGravity = true;
+								hitObject.GetComponent<Rigidbody>().velocity = transform.forward * 20;
 								TKActive = false;
 								firstHit = true;
 							}
@@ -205,7 +205,7 @@ public class RayScript : MonoBehaviour {
 							{
 								//restores rightful parent
 								hitObject.transform.parent = hitParent;
-								hitObject.rigidbody.useGravity = true;
+								hitObject.GetComponent<Rigidbody>().useGravity = true;
 								TKActive = false;
 								firstHit = true;
 							}
@@ -232,11 +232,11 @@ public class RayScript : MonoBehaviour {
 						
 						//SetRay (hit.point);
 						//targetRay = new Ray(transform.position, hit.point);
-						player.rigidbody.velocity = new Vector3(0,0,0);
+						player.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
 						Debug.DrawRay(transform.position, hit.point);
 						Vector3 grapplePoint = hit.point;
 						sight.SetPosition (1, grapplePoint);
-						player.rigidbody.useGravity = false;
+						player.GetComponent<Rigidbody>().useGravity = false;
 						player.transform.position = Vector3.MoveTowards(player.transform.position, grapplePoint, 8 * Time.deltaTime);
 					}
 				break;
@@ -251,7 +251,7 @@ public class RayScript : MonoBehaviour {
 				//if the TKActive variable was still activate and the raycast stopped
 				if (TKActive) {
 					lastObject.transform.parent = hitParent;
-					lastObject.rigidbody.useGravity = true; //restores gravity
+					lastObject.GetComponent<Rigidbody>().useGravity = true; //restores gravity
 					TKActive = false;
 					firstHit = true;
 				}
@@ -265,7 +265,7 @@ public class RayScript : MonoBehaviour {
 		if (TKActive && !(Input.GetKey("t")))
 		{
 				hitObject.transform.parent = hitParent;
-				hitObject.rigidbody.useGravity = true;
+				hitObject.GetComponent<Rigidbody>().useGravity = true;
 				TKActive = false;
 				firstHit = true;
 		}
@@ -278,10 +278,10 @@ public class RayScript : MonoBehaviour {
 	//method that handles the reversal of gravity
 	void ReverseGravity(GameObject flyingObject)
 	{
-		flyingObject.rigidbody.useGravity = false;
+		flyingObject.GetComponent<Rigidbody>().useGravity = false;
 		
 		//sets upward velocity
-		flyingObject.rigidbody.velocity = new Vector3(0, 0.8f, 0);
+		flyingObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0.8f, 0);
 		
 		//waits for 5 seconds
 		StartCoroutine(Cooldown (5, "GravityReverse", flyingObject));
@@ -298,7 +298,7 @@ public class RayScript : MonoBehaviour {
 		
 		if(coolType == "GravityReverse") {
 			yield return new WaitForSeconds(seconds);
-			storedObject.rigidbody.useGravity = true;
+			storedObject.GetComponent<Rigidbody>().useGravity = true;
 		}
 	}
 }
